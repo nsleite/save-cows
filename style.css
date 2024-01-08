@@ -156,22 +156,25 @@ button:hover {
         background-image: url(https://cdn-icons-png.flaticon.com/512/5643/5643268.png?ga=GA1.1.1699188909.1702300763&);
         transform: scale(0.25);
     }
-    50%{
+    10%{
         background-image: url(https://cdn-icons-png.flaticon.com/512/9856/9856622.png?ga=GA1.1.1699188909.1702300763&);
         transform: scale(0.5);
     }
-    85%{
+    17%{
         background-image: url(https://cdn-icons-png.flaticon.com/512/4061/4061383.png?ga=GA1.1.1699188909.1702300763&);
         transform: scale(1);
     }
-    100%{
+    20%{
         background-image: url(https://cdn-icons-png.flaticon.com/512/4061/4061383.png?ga=GA1.1.1699188909.1702300763&);
         transform: scale(1);
     }
+    38%{background-image: none;}
+    /* 100%{background-image: none;} */
 }
 
 .-boom{
-    animation-duration: 1.5s;
+    animation-duration: 4s;
+    animation-iteration-count: 1;
     animation-name: explosion;
     animation-timing-function: linear;
 }

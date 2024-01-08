@@ -1,0 +1,177 @@
+html{
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+#container{
+    display: flex;
+    position: absolute;
+    overflow: hidden;
+    width: 800px;
+    height: 360px;
+    background-size: contain;
+    /* background-repeat: no-repeat; */
+    
+    margin: 100px;
+    align-items: center ;
+    justify-content: center;
+    background-color: blueviolet;
+    background-image: url(https://thumbs.dreamstime.com/b/bit-pixel-art-illustration-farm-windmill-background-mountains-colorful-simple-vector-horizontal-retro-277597590.jpg?w=1400%201400w);
+    filter: invert(0.9);
+
+}
+
+
+#init{
+    filter: invert();
+    background-color: rgb(114, 17, 170) ;
+    color: rgb(197, 198, 199);
+    width: 300px;
+    height: 180px;
+    text-align: center;
+    border: 2px solid rgb(107, 106, 120);
+    border-radius: 20px;
+}
+
+button{
+    background-color: rgb(27, 27, 27);
+    border: 1px solid rgba(197, 198, 199, 0.15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+    box-sizing: border-box;
+    color: rgb(197, 199, 199);
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    padding: 6px 16px;
+    word-wrap: break-word;
+}
+
+button:hover {
+    background-color: rgb(48, 101, 150);
+    color: rgb(26, 29, 37);
+    transition-duration: 0.1s;
+}
+
+.tractor{
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    background-image: url(https://cdn-icons-png.flaticon.com/512/7291/7291823.png?ga=GA1.1.1699188909.1702300763&);
+    background-size: cover;
+    filter: invert(1);
+    /* transform: scaleX(-1); */
+}
+
+#player{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: 100px;
+    bottom: 150px;
+    background-image: url(https://cdn-icons-png.flaticon.com/512/8085/8085593.png?ga=GA1.1.1699188909.1702300763&amp;);
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: invert(1);
+}
+
+.airplane{
+    width:70px;
+    height: 70px;
+    position: absolute;
+    right:0px;
+    bottom: 250px;
+    background-image: url(https://cdn-icons-png.flaticon.com/512/4736/4736265.png?ga=GA1.1.1699188909.1702300763&);
+    background-size: cover;
+    filter: invert(1);
+}
+
+.cow{
+
+}
+
+@keyframes move{
+    0%{
+        transform: translateY(5px);
+    }
+    50%{
+        transform: translateY(0px);
+    }
+    100%{
+        transform: translateY(5px);
+    }
+}
+
+.-fly{
+    animation-duration: 0.8s;
+    animation-iteration-count: infinite;
+    animation-name: move;
+    animation-timing-function: ease;
+}
+
+.projectile{
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    left: 700px;
+    bottom: 300px;
+    background-image: url(https://cdn-icons-png.flaticon.com/512/1008/1008424.png?ga=GA1.1.1699188909.1702300763&);
+    background-size: cover;
+    filter: invert(1);
+    transform: scale(1.2, 0.5) rotate(-90deg);
+}
+
+@keyframes tractorMovement{
+    0% {
+        /* transform: scaleX(-1); */
+        transform: rotate(2deg) scaleX(-1);
+    }
+    50%{
+        /* transform: scaleX(-1); */
+        transform: rotate(0deg) scaleX(-1);
+    }
+    100%{
+        /* transform: scaleX(-1); */
+        transform: rotate(-2deg) scaleX(-1);
+    }
+}
+
+.-movement{
+    animation-duration: 0.3s;
+    animation-iteration-count: infinite;
+    animation-name: tractorMovement;
+    animation-timing-function: ease;
+}
+
+@keyframes explosion{
+    0% {
+        background-image: url(https://cdn-icons-png.flaticon.com/512/5643/5643268.png?ga=GA1.1.1699188909.1702300763&);
+        transform: scale(0.25);
+    }
+    50%{
+        background-image: url(https://cdn-icons-png.flaticon.com/512/9856/9856622.png?ga=GA1.1.1699188909.1702300763&);
+        transform: scale(0.5);
+    }
+    85%{
+        background-image: url(https://cdn-icons-png.flaticon.com/512/4061/4061383.png?ga=GA1.1.1699188909.1702300763&);
+        transform: scale(1);
+    }
+    100%{
+        background-image: url(https://cdn-icons-png.flaticon.com/512/4061/4061383.png?ga=GA1.1.1699188909.1702300763&);
+        transform: scale(1);
+    }
+}
+
+.-boom{
+    animation-duration: 1.5s;
+    animation-name: explosion;
+    animation-timing-function: linear;
+}

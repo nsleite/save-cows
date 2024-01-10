@@ -1,3 +1,13 @@
+:root{ 
+    --cow: url(https://cdn-icons-png.flaticon.com/512/3319/3319363.png?ga=GA1.1.1699188909.1702300763&);
+    --airplane: url(https://cdn-icons-png.flaticon.com/512/4736/4736265.png?ga=GA1.1.1699188909.1702300763&);
+    --tractor: url(https://cdn-icons-png.flaticon.com/512/7291/7291823.png?ga=GA1.1.1699188909.1702300763&);
+    --disc: url(https://cdn-icons-png.flaticon.com/512/8085/8085593.png?ga=GA1.1.1699188909.1702300763&amp;);
+    --shot: url(https://cdn-icons-png.flaticon.com/512/1008/1008424.png?ga=GA1.1.1699188909.1702300763&);
+    --background: url(https://thumbs.dreamstime.com/b/bit-pixel-art-illustration-farm-windmill-background-mountains-colorful-simple-vector-horizontal-retro-277597590.jpg?w=1400%201400w);
+
+}
+
 html{
     font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
@@ -21,7 +31,7 @@ body{
     align-items: center ;
     justify-content: center;
     background-color: blueviolet;
-    background-image: url(https://thumbs.dreamstime.com/b/bit-pixel-art-illustration-farm-windmill-background-mountains-colorful-simple-vector-horizontal-retro-277597590.jpg?w=1400%201400w);
+    background-image: var(--background);
     filter: invert(0.9);
 
 }
@@ -59,13 +69,17 @@ button:hover {
     transition-duration: 0.1s;
 }
 
+div{
+    border: rgb(0, 230, 0) dashed 3px;
+}
+
 .tractor{
     width: 70px;
     height: 70px;
     position: absolute;
     right: 0px;
     bottom: 0px;
-    background-image: url(https://cdn-icons-png.flaticon.com/512/7291/7291823.png?ga=GA1.1.1699188909.1702300763&);
+    background-image: var(--tractor);
     background-size: cover;
     filter: invert(1);
     /* transform: scaleX(-1); */
@@ -77,7 +91,7 @@ button:hover {
     position: absolute;
     left: 100px;
     bottom: 150px;
-    background-image: url(https://cdn-icons-png.flaticon.com/512/8085/8085593.png?ga=GA1.1.1699188909.1702300763&amp;);
+    background-image: var(--disc);
     background-size: cover;
     background-repeat: no-repeat;
     filter: invert(1);
@@ -89,13 +103,22 @@ button:hover {
     position: absolute;
     right:0px;
     bottom: 250px;
-    background-image: url(https://cdn-icons-png.flaticon.com/512/4736/4736265.png?ga=GA1.1.1699188909.1702300763&);
+    background-image: var(--airplane);
     background-size: cover;
     filter: invert(1);
 }
 
 .cow{
-
+    width: 85px;
+    height: 95px;
+    position: absolute;
+    bottom: 3px;
+    background-image: var(--cow);
+    background-size: 55%;
+    background-repeat: no-repeat;
+    background-position: 0% 100%;
+    filter: invert(1);
+    transform: scaleX(-1);
 }
 
 @keyframes move{
@@ -123,7 +146,7 @@ button:hover {
     position: absolute;
     left: 700px;
     bottom: 300px;
-    background-image: url(https://cdn-icons-png.flaticon.com/512/1008/1008424.png?ga=GA1.1.1699188909.1702300763&);
+    background-image: var(--shot);
     background-size: cover;
     filter: invert(1);
     transform: scale(1.2, 0.5) rotate(-90deg);
@@ -176,5 +199,57 @@ button:hover {
     animation-duration: 4s;
     animation-iteration-count: 1;
     animation-name: explosion;
+    animation-timing-function: linear;
+}
+
+@keyframes abduction {
+    0% {
+        background-image: var(--cow);
+        transform: scale(1) rotate(90deg) translateY(-20px);
+    }
+    15%{
+        background-image: var(--cow);
+        transform: scale(0.7) rotate(180deg) translateY(-40px);
+    }
+    25%{
+        background-image: var(--cow);
+        transform: scale(0.5) rotate(275deg) translateY(-60px);
+    }
+    35%{
+        background-image: var(--cow);
+        transform: scale(0.25) rotate(360deg) translateY(-80px); 
+    }
+    36%{background-image: none;}
+    100%{background-image: none;}
+}
+
+.-abducted{
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-name: abduction;
+    animation-timing-function: linear;
+}
+
+@keyframes explosion2{
+    0% {
+        background-image: url(https://cdn-icons-png.flaticon.com/512/5643/5643268.png?ga=GA1.1.1699188909.1702300763&);
+        transform: scale(0.25);
+    }
+    5%{
+        background-image: url(https://cdn-icons-png.flaticon.com/512/4061/4061383.png?ga=GA1.1.1699188909.1702300763&);
+        transform: scale(1);
+    }
+    10%{
+        background-image: url(https://cdn-icons-png.flaticon.com/512/4061/4061383.png?ga=GA1.1.1699188909.1702300763&);
+        transform: scale(1);
+    }
+    15%{background-image: none;}
+    /* 100%{background-image: none;}  */
+}
+
+.-baam{
+    animation-duration: 4s;
+    animation-iteration-count: 1;
+    animation-name: explosion2;
     animation-timing-function: linear;
 }

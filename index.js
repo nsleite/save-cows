@@ -1,5 +1,5 @@
 
-var step = 4; // pixel
+var step = 5; // pixel
 var timeInterval = 5 // ms
 var game = {};
 var tractorCount = 0;
@@ -11,6 +11,8 @@ var canSpawnPlane = true;
 var canSpawnTractor = true;
 var planeHitted = false;
 var spawnEnemyPosition = 1000;
+var cowCanColide = true;
+var tractorCanColide = true;
 
 var game = {};
 function pressing (key){
@@ -28,6 +30,7 @@ function startGame(){
     summonPlayer();
     summonTractor();
     summonPlane();
+    summonCow();
 
     game.pressed =[];
 
@@ -47,6 +50,7 @@ function gameLoop(){
     moveTractor();
     movePlayer();
     movePlane();
+    MoveCow();
 }
 
 function summonPlayer(){
@@ -57,9 +61,10 @@ function summonTractor(){
     if(!canSpawnTractor){
         return;
     }
-    let positionX = 
+    let positionX = 1.15 * spawnEnemyPosition;
     $("#container").append(`<div class="tractor -movement"></div>`);
-    $(".airplane").css("left", positionX);
+    $(".tractor").css("left", positionX);
+    tractorCanColide = true;
     canSpawnTractor = false;
     
 }
@@ -71,7 +76,7 @@ function summonPlane(){
     let limitHeight = parseInt($("#container").css("height"));
     let maxHeight = Math.floor(0.75 * limitHeight);
     let minHeight = Math.floor(0.35 * limitHeight);
-    let positionX = 2 * spawnEnemyPosition;
+    let positionX = 2.5 * spawnEnemyPosition;
     let positionY = parseInt( Math.random() * (maxHeight - minHeight) + minHeight);
     $("#container").append(`<div class="airplane -fly"><div>`);
     $(".airplane").css("bottom", positionY);
@@ -79,8 +84,15 @@ function summonPlane(){
     canSpawnPlane = false;
 }
 
+function summonCow(){
+    let positionX = 0.8 * spawnEnemyPosition;
+    $("#container").append(`<div class="cow"></div>`);
+    $(".cow").css("left", positionX);
+    cowCanColide = true;
+}
+
 function moveBackground(){
-    currentPosition = parseInt( $("#container").css("background-position") );
+    let currentPosition = parseInt( $("#container").css("background-position") );
     $("#container").css("background-position", currentPosition - step);
 }
 
@@ -89,8 +101,8 @@ function moveTractor(){
         summonTractor();
         return;
     }
-    currentPosition = parseInt( $(".tractor").css("left") );
-    $(".tractor").css("left", currentPosition - step);
+    let currentPosition = parseInt( $(".tractor").css("left") );
+    $(".tractor").css("left", currentPosition - 1.43 * step);
     if (currentPosition <= 0){
         $(`.tractor`).remove();
         canSpawnTractor = true;
@@ -105,7 +117,7 @@ function movePlane(){
         summonPlane();
         return;
     }
-    var currentPosition = parseInt( $(".airplane").css("left") );
+    let currentPosition = parseInt( $(".airplane").css("left") );
     console.log("entered here");
     if (currentPosition <= 0){
         $(`.airplane`).remove();
@@ -127,6 +139,15 @@ function movePlayer(){
     $("body").keyup(function(){
         keyFlag = false;
     });
+    let abduction = checkCollision("#player", ".cow");
+    if(abduction){
+        // $(".cow").remove();
+        // $("#container").append('<div class="-abducted"><div>');
+        cowCanColide = false;
+        $(".cow").addClass("-abducted");
+        return
+    }
+
 }
 
 function moveUp(){
@@ -143,6 +164,27 @@ function moveDown(){
     }
     $("#player").animate({bottom: `-=${6*step}`}, "fast");
     return;
+}
+
+function MoveCow(){
+    if(!$(".cow").length){
+        summonCow();
+        return;
+    }
+    let currentPosition = parseInt( $(".cow").css("left") );
+    let colided = checkCollision(".cow", ".tractor");
+    $(".cow").css("left", currentPosition - step);
+    if (currentPosition <= 0){
+        $(`.cow`).remove();
+        summonCow();
+        return;
+    }
+    if (cowCanColide && tractorCanColide && colided){
+        $(`.cow`).remove();
+        console.log("colided");
+        // add beef animation
+        return;
+    }
 }
 
 // Stil need some changes
@@ -171,13 +213,22 @@ function moveShot(){
         duration: 100, iteration: Infinity
         });
         let position = parseInt($(".projectile").css("right"));
-        let colided = checkCollision(".airplane", ".projectile");
-        if (colided){
+        let shotPlane = checkCollision(".projectile", ".airplane");
+        let shotTractor = checkCollision(".projectile", ".tractor");
+        if (shotPlane){
             console.log("hit landed");
             $(".projectile").remove();
-            addExplosion(".airplane");
-            // $(".airplane").remove();
+            $(".airplane").addClass("-boom");
             canSpawnPlane = true;
+            canShot = true;
+            return;
+        }
+        if(shotTractor){
+            console.log("hit landed");
+            $(".projectile").remove();
+            $(".tractor").addClass("-baam");
+            tractorCanColide = false;
+            canSpawnTractor = true;
             canShot = true;
             return;
         }
@@ -213,13 +264,8 @@ function checkBorder(check="top"){
     var position = parseInt($("#player").css("bottom"));
     var height = parseInt($("#player").css("height"));
     console.log(position, height, limitHeight);
-    return check === "top" ? position >= limitHeight - height : position <= height;
+    return check == "top" ? position >= limitHeight - 2 * height : position <= height;
 }
-
-function addExplosion(entity){
-    $(entity).addClass("-boom");
-}
-
 
 function gameOver(){
 

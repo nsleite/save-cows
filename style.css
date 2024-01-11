@@ -37,7 +37,7 @@ body{
 }
 
 
-#init{
+.init{
     filter: invert();
     background-color: rgb(114, 17, 170) ;
     color: rgb(197, 198, 199);

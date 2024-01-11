@@ -4,6 +4,7 @@
     --tractor: url(https://cdn-icons-png.flaticon.com/512/7291/7291823.png?ga=GA1.1.1699188909.1702300763&);
     --disc: url(https://cdn-icons-png.flaticon.com/512/8085/8085593.png?ga=GA1.1.1699188909.1702300763&amp;);
     --shot: url(https://cdn-icons-png.flaticon.com/512/1008/1008424.png?ga=GA1.1.1699188909.1702300763&);
+    --init-backgroung: url(https://media.istockphoto.com/id/1176184540/vector/vector-ufo-abducts-cow-illustration-night-sky.jpg?s=612x612&w=0&k=20&c=OKyb360MOnuNuFc2mJj2mgU5j1HKp03-xOsTKN5wLiM=);
     --background: url(https://thumbs.dreamstime.com/b/bit-pixel-art-illustration-farm-windmill-background-mountains-colorful-simple-vector-horizontal-retro-277597590.jpg?w=1400%201400w);
 
 }
@@ -32,15 +33,31 @@ body{
     justify-content: center;
     background-color: blueviolet;
     background-image: var(--background);
-    filter: invert(0.9);
+    filter: invert(0.88);
 
 }
-
+.score{
+    filter: invert();
+    position: absolute;
+    top: 0px;
+    width: 200px;
+    height: 55px;
+    font-size: 10px;
+    text-align: center;
+    color: rgb(106, 212, 141);
+    text-shadow: 0 0 2px #f3f3f3;
+    white-space: pre;
+}
 
 .init{
     filter: invert();
     background-color: rgb(114, 17, 170) ;
-    color: rgb(197, 198, 199);
+    background-image: var(--init-backgroung);
+    color: rgb(106, 212, 141);
+    text-shadow: 0 0 2px #000;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0px -48px;
     width: 300px;
     height: 180px;
     text-align: center;
@@ -69,9 +86,9 @@ button:hover {
     transition-duration: 0.1s;
 }
 
-div{
+/* div{
     border: rgb(0, 230, 0) dashed 3px;
-}
+} */
 
 .tractor{
     width: 70px;
@@ -235,20 +252,20 @@ div{
         background-image: url(https://cdn-icons-png.flaticon.com/512/5643/5643268.png?ga=GA1.1.1699188909.1702300763&);
         transform: scale(0.25);
     }
+    2.5%{
+        background-image: url(https://cdn-icons-png.flaticon.com/512/4061/4061383.png?ga=GA1.1.1699188909.1702300763&);
+        transform: scale(1);
+    }
     5%{
         background-image: url(https://cdn-icons-png.flaticon.com/512/4061/4061383.png?ga=GA1.1.1699188909.1702300763&);
         transform: scale(1);
     }
-    10%{
-        background-image: url(https://cdn-icons-png.flaticon.com/512/4061/4061383.png?ga=GA1.1.1699188909.1702300763&);
-        transform: scale(1);
-    }
-    15%{background-image: none;}
+    7.5%{background-image: none;}
     /* 100%{background-image: none;}  */
 }
 
 .-baam{
-    animation-duration: 4s;
+    animation-duration: 8s;
     animation-iteration-count: 1;
     animation-name: explosion2;
     animation-timing-function: linear;

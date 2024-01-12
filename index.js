@@ -1,15 +1,15 @@
 
-var step = 5; // pixel
-var game = {};
-var keyFlag = false;
-var canShot = true;
-var canSpawnPlane = true, canSpawnTractor = true, canSpawnCow = true;
+var step = 4, initialStep = 4; // pixel
 var spawnEnemyPosition = 1000;
-var cowCanColide = true, tractorCanColide = true; canBeAbducted = true;
-var score = 0, kills = 0, saved = 0,beefs = 0;
-
-
 var game = {};
+
+var keyFlag = false, canShot = true;
+var canSpawnPlane = true, canSpawnTractor = true, canSpawnCow = true;
+var cowCanColide = true, tractorCanColide = true; canBeAbducted = true;
+
+var score = 0, kills = 0, saved = 0, notSaved = 0, beefs = 0;
+var killPlane = 0, killTractor = 0;
+
 function pressing (key){
     var KEYS = {
         'w' : moveUp,
@@ -142,7 +142,7 @@ function movePlayer(){
         $(".cow").addClass("-abducted");
         cowCanColide = false;
         canBeAbducted = false;
-        saved += 1.2;
+        saved += 1;
         return;
     }
     if(planeCollision || ( tractorCollision && tractorCanColide) ){
@@ -176,7 +176,7 @@ function MoveCow(){
     $(".cow").css("left", currentPosition - step);
     if (currentPosition <= 0){
         $(`.cow`).remove();
-        saved -= 0.2;
+        notSaved += 1;
         summonCow();
         return;
     }
@@ -221,7 +221,7 @@ function moveShot(){
             canSpawnPlane = true;
             shotPlane = false;
             canShot = true;
-            kills += 1;
+            killPlane += 1;
             return;
         }
         if(shotTractor){
@@ -231,7 +231,7 @@ function moveShot(){
             canSpawnTractor = true;
             shotTractor = false;
             canShot = true;
-            kills += 0.5;
+            killTractor += 1;
             return;
         }
         if (position <= 0){
@@ -276,15 +276,18 @@ function gameOver(){
 }
 
 function restart(){
-    score = (100*kills) + (100*saved) - (50*beefs);
+    score = 50*(4* killPlane + killTractor + 2.4 * saved -
+                0.4 * notSaved - 2 * beefs);
     $(".init h2").text("GAME OVER");
     $(".init h3").text(`Final Score: ${score}`);
     $(".init button").text("RESTART");
     score = kills = saved = beefs = 0;
+    killPlane = killTractor = notSaved = 0;
+    step = initialStep;
     $(".init").show()
 }
 
-function clearScreen(end=false){
+function clearScreen(){
     if($(".airplane").length){
         $(".airplane").remove();
         canSpawnPlane = true;
@@ -312,5 +315,8 @@ function appendScore(){
 }
 
 function updateScore(){
+    kills = killPlane + killTractor;
+    step = initialStep + 0.2 * kills;
+    console.log(step);
     $(".score h2").text(`kills: ${kills}    saved: ${saved}    beefs: ${beefs}`);
 }

@@ -7,6 +7,7 @@ var keyFlag = false, canShot = true;
 var canSpawnPlane = true, canSpawnTractor = true, canSpawnCow = true;
 var cowCanColide = true, tractorCanColide = true; canBeAbducted = true;
 
+
 var score = 0, kills = 0, saved = 0, notSaved = 0, beefs = 0;
 var killPlane = 0, killTractor = 0;
 
@@ -76,6 +77,7 @@ function summonPlane(){
     $(".airplane").css("bottom", positionY);
     $(".airplane").css("left", positionX);
     canSpawnPlane = false;
+    planeCanColide = true;
 }
 
 function summonCow(){
@@ -215,23 +217,22 @@ function moveShot(){
         let position = parseInt($(".projectile").css("right"));
         let shotPlane = checkCollision(".projectile", ".airplane");
         let shotTractor = checkCollision(".projectile", ".tractor");
-        if (shotPlane){
+        if (shotPlane && planeCanColide){
             $(".projectile").remove();
             $(".airplane").addClass("-boom");
+            planeCanColide = false;
             canSpawnPlane = true;
-            shotPlane = false;
-            canShot = true;
             killPlane += 1;
+            canShot = true;
             return;
         }
-        if(shotTractor){
+        if(shotTractor && tractorCanColide){
             $(".projectile").remove();
             $(".tractor").addClass("-baam");
             tractorCanColide = false;
             canSpawnTractor = true;
-            shotTractor = false;
-            canShot = true;
             killTractor += 1;
+            canShot = true;
             return;
         }
         if (position <= 0){

@@ -8,4 +8,4 @@ The game consists of rescuing cows and eliminating the enemies that appear along
 
 ## Execution
 
-As a browser game, all you need to do is download the files and type the full path to the HTML file into the browser's address bar.
+Just go to https://nsleite.github.io/save-cows/ and play :).
